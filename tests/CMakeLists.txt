@@ -29,8 +29,8 @@ FetchContent_MakeAvailable(lcov)
 
 add_executable(${TEST_NAME})
 target_sources(${TEST_NAME}
-    PRIVATE ${CMAKE_SOURCE_DIR}/src/templ.cc
-    PRIVATE testtempl.cc
+    PRIVATE ${CMAKE_SOURCE_DIR}/src/module.cc
+    PRIVATE test_module.cc
     )
 
 target_include_directories(${TEST_NAME}
@@ -38,6 +38,6 @@ target_include_directories(${TEST_NAME}
     )
 
 target_link_libraries(${TEST_NAME}
-    # PRIVATE gtest_main
-    PRIVATE gmock_main
+    PRIVATE gtest_main
+    PRIVATE gmock
     )

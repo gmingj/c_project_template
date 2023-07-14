@@ -2,8 +2,8 @@
 add_executable(${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
-    PRIVATE templ.cc
-    PRIVATE templ_main.cc
+    PRIVATE module.cc
+    PRIVATE main.cc
     )
 
 target_include_directories(${PROJECT_NAME}
