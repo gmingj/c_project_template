@@ -9,7 +9,7 @@ FetchContent_Declare(googletest
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-include(CodeCoverage)
+include(coverage)
 FetchContent_Declare(lcov
     URL https://github.com/linux-test-project/lcov/releases/download/v1.15/lcov-1.15.tar.gz
     DOWNLOAD_EXTRACT_TIMESTAMP ON

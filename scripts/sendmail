@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+# usage:
+#   ./sendmail R1.0 user1@mail.com,user2@mail.com,...
+
+import sys
+import smtplib
+import pypandoc
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+def send_mail(msgbody, vertag = sys.argv[1], receivers = sys.argv[2]):
+    sender = "autocore_robot@163.com"
+    message = MIMEMultipart(".")
+    message['From'] = 'Automation for GitLab <%s>' % sender
+    message['To'] = ",".join([receivers])
+    message['Subject'] = '[CI/CD] Power Management Service ' + vertag + ' released'
+    message.attach(MIMEText(msgbody, 'html', 'utf-8'))
+    server = smtplib.SMTP("smtp.163.com", 25)
+    try:
+        server.login(sender, "XMEIYIKHOHJUFJCR")
+        server.sendmail(sender, [receivers], message.as_string())
+        server.quit()
+    except smtplib.SMTPException as e:
+        print(e)
+
+if __name__ == "__main__":
+    with open('CHANGELOG.md', 'r', encoding="utf-8") as f:
+        changes = pypandoc.convert_text(f.read(), 'html', format='md')
+
+    content = '''
+        <h2> REPO </h2>
+        <a href="https://gitlab.com/autocore/runtime/pm">autocore / Runtime / PM · GitLab</a>
+        <h2> PACKAGE </h2>
+        <a href="http://release.autocore.ai/PlatformService/pm">PlatformService / PM · Release</a>
+        <h2> CHANGELOG </h2>
+        ''' + changes
+
+    send_mail(content)
+
+

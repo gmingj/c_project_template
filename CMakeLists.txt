@@ -16,7 +16,7 @@ if(BUILD_EXAMPLE)
     add_subdirectory(examples)
 endif()
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_subdirectory(tests)
 endif()
 

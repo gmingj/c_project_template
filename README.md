@@ -1,5 +1,11 @@
 # C++ Project Template
 
+# Dependences for doc
+```
+sudo apt install -y doxygen plantuml graphviz pandoc texlive python3-pandocfilters pandoc-plantuml-filter texlive-latex-recommended texlive-latex-extra texlive-pictures
+pip install pikepdf
+```
+
 ![Release](https://github.com/MangaD/cpp-project-template/actions/workflows/build-release.yml/badge.svg) ![Debug](https://github.com/MangaD/cpp-project-template/actions/workflows/build-debug.yml/badge.svg) ![Doxygen](https://github.com/MangaD/cpp-project-template/actions/workflows/doxygen-gh-pages.yml/badge.svg)
 
 [![CDash](https://img.shields.io/badge/CDash-dashboard-green)](https://my.cdash.org/index.php?project=cpp-project-template) [![codecov](https://codecov.io/gh/MangaD/cpp-project-template/branch/main/graph/badge.svg?token=4D88K24BF0)](https://codecov.io/gh/MangaD/cpp-project-template) [![Coverage Status](https://coveralls.io/repos/github/MangaD/cpp-project-template/badge.svg?branch=main)](https://coveralls.io/github/MangaD/cpp-project-template?branch=main) <a href="https://scan.coverity.com/projects/mangad-cpp-project-template">
