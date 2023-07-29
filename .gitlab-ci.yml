@@ -1,7 +1,8 @@
 variables:
-  RELEASE_URI: 'autocore@release.autocore.ai'
-  BASE_PATH: '/home/autocore/workspace/Release/PlatformService/pm'
+  RELEASE_URI: 'x-user@x-mail.com'
+  BASE_PATH: '/home/x-user/workspace/release/x-project'
   VERTAG: 'latest'
+  RUNNER: 'x-runner'
 
 .utility_cd: &create_remote_dir
   - ssh $RELEASE_URI -o StrictHostKeyChecking=no mkdir -p $TARGET_PATH
@@ -20,7 +21,7 @@ variables:
     - *create_remote_dir
     - *upload_to_remote
   tags:
-    - rt-ci-128
+    - $RUNNER
 
 .template_notify: &tmpl_notify
   stage: notify
@@ -29,7 +30,7 @@ variables:
     - scripts/sendmail $VERTAG $MAIL_TO
   retry: 2
   tags:
-    - rt-ci-128
+    - $RUNNER
   dependencies: []
 
 stages:
@@ -47,10 +48,10 @@ build:
   artifacts:
     expire_in: 5 mins
     paths:
-      - build/dist/bin/pmservice
+      - build/dist/bin/x-bin
       - build/doc/UserGuide.pdf
   tags:
-    - rt-ci-128
+    - $RUNNER
 
 test:
   stage: test
@@ -64,7 +65,7 @@ test:
     paths:
       - build/cover
   tags:
-    - rt-ci-128
+    - $RUNNER
 
 deploy_latest:
   before_script:
@@ -81,14 +82,14 @@ deploy_release:
 
 notify_latest:
   before_script:
-    - MAIL_TO='major.goo@autocore.ai'
+    - MAIL_TO='x-user@x-mail.com'
   <<: *tmpl_notify
   except:
     - tags
 
 notify_release:
   before_script:
-    - MAIL_TO='autocore-runtime@autocore.ai,claire.shao@autocore.ai,lin.wei@autocore.ai'
+    - MAIL_TO='x-users@x-mail.com'
     - VERTAG=R$CI_COMMIT_TAG
   <<: *tmpl_notify
   only:

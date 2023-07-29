@@ -11,15 +11,15 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 def send_mail(msgbody, vertag = sys.argv[1], receivers = sys.argv[2]):
-    sender = "autocore_robot@163.com"
+    sender = "x-server@x-mail.com"
     message = MIMEMultipart(".")
     message['From'] = 'Automation for GitLab <%s>' % sender
     message['To'] = ",".join([receivers])
-    message['Subject'] = '[CI/CD] Power Management Service ' + vertag + ' released'
+    message['Subject'] = '[CI/CD] X-Project ' + vertag + ' released'
     message.attach(MIMEText(msgbody, 'html', 'utf-8'))
     server = smtplib.SMTP("smtp.163.com", 25)
     try:
-        server.login(sender, "XMEIYIKHOHJUFJCR")
+        server.login(sender, "PASSWORD")
         server.sendmail(sender, [receivers], message.as_string())
         server.quit()
     except smtplib.SMTPException as e:
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     content = '''
         <h1> Repository </h1>
-        <a href="https://gitlab.com/autocore/runtime/pm">autocore / Runtime / PM · GitLab</a>
+        <a href="https://github.com/x">x-project</a>
         ''' + changes
 
     send_mail(content)
