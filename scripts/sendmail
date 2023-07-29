@@ -30,11 +30,8 @@ if __name__ == "__main__":
         changes = pypandoc.convert_text(f.read(), 'html', format='md')
 
     content = '''
-        <h2> REPO </h2>
+        <h1> Repository </h1>
         <a href="https://gitlab.com/autocore/runtime/pm">autocore / Runtime / PM · GitLab</a>
-        <h2> PACKAGE </h2>
-        <a href="http://release.autocore.ai/PlatformService/pm">PlatformService / PM · Release</a>
-        <h2> CHANGELOG </h2>
         ''' + changes
 
     send_mail(content)

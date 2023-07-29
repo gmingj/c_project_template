@@ -12,7 +12,7 @@ variables:
 .utility_ul: &upload_to_remote
   - TARGET_PACK=AC-PM-${VERTAG}-amd64-linux.tar.gz
   - tar czf $TARGET_PACK build/dist/*
-  - scp -r $TARGET_PACK build/cover $RELEASE_URI:$TARGET_PATH
+  - scp -r $TARGET_PACK build/cover build/doc/UserGuide.pdf $RELEASE_URI:$TARGET_PATH
 
 .template_deploy: &tmpl_deploy
   stage: deploy
@@ -25,6 +25,7 @@ variables:
 .template_notify: &tmpl_notify
   stage: notify
   script:
+    - pip install pypandoc
     - scripts/sendmail $VERTAG $MAIL_TO
   retry: 2
   tags:
@@ -40,13 +41,14 @@ stages:
 build:
   stage: build
   script:
-    - BUILD_FLAGS='-DBUILD_SAMPLE=ON'
+    - BUILD_FLAGS='-DBUILD_SAMPLE=ON -DBUILD_DOC=ON'
     - *cmake_build
     - cmake --install build
   artifacts:
     expire_in: 5 mins
     paths:
       - build/dist/bin/pmservice
+      - build/doc/UserGuide.pdf
   tags:
     - rt-ci-128
 
@@ -86,7 +88,7 @@ notify_latest:
 
 notify_release:
   before_script:
-    - MAIL_TO='major.goo@autocore.ai' # TODO: 'autocore-runtime@autocore.ai,claire.shao@autocore.ai,lin.wei@autocore.ai'
+    - MAIL_TO='autocore-runtime@autocore.ai,claire.shao@autocore.ai,lin.wei@autocore.ai'
     - VERTAG=R$CI_COMMIT_TAG
   <<: *tmpl_notify
   only:
